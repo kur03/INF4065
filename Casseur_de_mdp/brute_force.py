@@ -17,20 +17,15 @@ def bf (type_hash, mdp) :
   hash = MDP'''
 
   #tableaux avec les caractères des combinaisons qu'on doit tester
-  all = ['a','b','c','d']
-  #,'e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','@','[',']','^','_','!','"','#','$','%','&','(',')','*','+',',','-','.','/',':',';','{','}','<','>','=','|','~','?']
+  all = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','@','[',']','^','_','!','"','#','$','%','&','(',')','*','+',',','-','.','/',':',';','{','}','<','>','=','|','~','?']
   
  #taille maximale que fait notre mdp
-  MAX_LENGTH = 3 #15
+  MAX_LENGTH = 15
 
   for i in range(MAX_LENGTH): #Les différentes tailles de mdp à trouver
-    ismdp = combinaisons(mdp, 0, i, '', all, type_hash)
+    combinaisons(mdp, 0, i, '', all, type_hash)
 
-    if ismdp == True :
-      print("Tous les mots de passe de", i, "caractères ont été testé.")
-    
-    else : 
-      return mdp
+    print("Tous les mots de passe de", i+1, "caractères ont été testé.")
 
 
 def combinaisons (hash, currentlength, maxlength, mdp_test, all, type_hash) : #boucle de création des combinaisons
@@ -39,18 +34,15 @@ def combinaisons (hash, currentlength, maxlength, mdp_test, all, type_hash) : #b
         return
 
     for i in range(len(all)):
-
       if type_hash == 'sha1' :
         check = verification_sha1(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
 
       elif type_hash == 'MD5' :
         check = verification_MD5(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
-    
-      if check == True : # si ce n'est pas le bon mdp check = true
+
+      if (check) : # si ce n'est pas le bon mdp check = false
         combinaisons (hash, currentlength+1, maxlength, mdp_test+all[i], all, type_hash) #Recursion avec caractère suivant
-        
+      
       else : # si c'est le bon mdp check aura sa valeur
-        return check
-    
-    return True
+        break
 

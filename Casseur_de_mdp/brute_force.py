@@ -2,7 +2,7 @@ import hashlib
 import sys
 from verification import verification_sha1 
 from verification import verification_MD5
-
+from numba import cuda
 
 #mdp_test est le mot de passe créé à partir des combinaisons de lettre AVANT de passer dans l'algo de hash
 
@@ -38,7 +38,7 @@ def bf (type_hash, mdp) :
 #
 #      print("Tous les mots de passe de", i, "caractères ont été testé.")
 
-
+@cuda.jit 
 def combinaisons (hash, currentlength, maxlength, mdp_test, all, type_hash) : #boucle de création des combinaisons
     if currentlength > maxlength:
 

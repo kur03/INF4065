@@ -17,15 +17,16 @@ def bf (type_hash, mdp) :
   hash = MDP'''
 
   #tableaux avec les caractères des combinaisons qu'on doit tester
-  all = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','@','[',']','^','_','!','"','#','$','%','&','(',')','*','+',',','-','.','/',':',';','{','}','<','>','=','|','~','?']
+  all = ['a','b','c','d']
+  #,'e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','@','[',']','^','_','!','"','#','$','%','&','(',')','*','+',',','-','.','/',':',';','{','}','<','>','=','|','~','?']
   
  #taille maximale que fait notre mdp
-  MAX_LENGTH = 15
+  MAX_LENGTH = 3 #15
 
   for i in range(MAX_LENGTH): #Les différentes tailles de mdp à trouver
-    mdp = combinaisons(mdp, 0, i, '', all, type_hash)
+    ismdp = combinaisons(mdp, 0, i, '', all, type_hash)
 
-    if mdp == True :
+    if ismdp == True :
       print("Tous les mots de passe de", i, "caractères ont été testé.")
     
     else : 

@@ -23,9 +23,13 @@ def bf (type_hash, mdp) :
   MAX_LENGTH = 15
 
   for i in range(MAX_LENGTH): #Les différentes tailles de mdp à trouver
-    combinaisons(mdp, 0, i, '', all, type_hash)
+    mdp = combinaisons(mdp, 0, i, '', all, type_hash)
 
-    print("Tous les mots de passe de", i, "caractères ont été testé.")
+    if not(mdp) :
+      print("Tous les mots de passe de", i, "caractères ont été testé.")
+    
+    else : 
+      return mdp
 
 
 def combinaisons (hash, currentlength, maxlength, mdp_test, all, type_hash) : #boucle de création des combinaisons
@@ -36,10 +40,16 @@ def combinaisons (hash, currentlength, maxlength, mdp_test, all, type_hash) : #b
     for i in range(len(all)):
 
       if type_hash == 'sha1' :
-         verification_sha1(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
+        check = verification_sha1(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
 
       elif type_hash == 'MD5' :
-        verification_MD5(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
-
+        check = verification_MD5(hash, mdp_test+all[i]) #on vérifie si la string obtenue est notre mdp
+    
+    if not(check) : # si ce n'est pas le bon mdp check = false
       combinaisons (hash, currentlength+1, maxlength, mdp_test+all[i], all, type_hash) #Recursion avec caractère suivant
+      
+    else : # si c'est le bon mdp check aura sa valeur
+      return check
+    
+    return False
 

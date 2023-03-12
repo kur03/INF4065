@@ -1,6 +1,5 @@
 from numba import cuda
-import brute_force as bf
-
+from brute_force import combinaisons
 
 @cuda.jit 
 def kernel_combinaisons(mdp, type_hash):
@@ -10,5 +9,5 @@ def kernel_combinaisons(mdp, type_hash):
     MAX_LENGTH = 15
     
     for i in range(MAX_LENGTH): #Les différentes tailles de mdp à trouver
-        bf.combinaisons(mdp, 0, i, '', all, type_hash)
+        combinaisons(mdp, 0, i, '', all, type_hash)
         print("Tous les mots de passe de", i, "caractères ont été testé.")
